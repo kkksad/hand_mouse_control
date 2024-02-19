@@ -34,7 +34,7 @@ class MainApp(QWidget):
         for i in range(10):
             self.comboBox.addItem(str(i))
         self.function_selector = QComboBox(self)
-        self.function_selector.addItem("Управение рукой")
+        self.function_selector.addItem("Управление рукой")
         self.function_selector.addItem("Распознавание движения")
         self.start_button = QPushButton("Запустить")
         self.start_button.clicked.connect(self.start_selected_function)
