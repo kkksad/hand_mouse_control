@@ -17,11 +17,11 @@ lineType = 3
 #Настройки управления
 cofx = 1.6 #растяжение по Х
 cofy = 1.9 #растяжение по Y
-pos_y_move=300 #Сдвиг Y
-pos_x_move=60 #Сдвиг Х
-middle_distance=30 #расстояние ЛКМ Х2
-ring_distance = 30 #расстояние ПКМ
-finger_distance=30 #расстояние ЛКМ 
+pos_y_move=200 #Сдвиг Y
+pos_x_move=100 #Сдвиг Х
+middle_distance=25 #расстояние ЛКМ Х2
+ring_distance = 25 #расстояние ПКМ
+finger_distance=25 #расстояние ЛКМ 
 
 
 mouse=Controller()
@@ -74,6 +74,8 @@ class MainApp(QWidget):
             if results.multi_hand_landmarks:
                 for landmarks in results.multi_hand_landmarks:
                     index_finger_landmark = landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+                    index_finger_mcp = landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP]
+                    
                     middle_finger_landmark = landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
                     ring_finger_landmark = landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP]
                     thumb_landmark = landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
@@ -82,7 +84,7 @@ class MainApp(QWidget):
                     middle_x, middle_y = int(middle_finger_landmark.x * screen_width), int(middle_finger_landmark.y * screen_height)
                     thumb_x, thumb_y = int(thumb_landmark.x * screen_width), int(thumb_landmark.y * screen_height)
                     ring_x, ring_y = int(ring_finger_landmark.x * screen_width), int(ring_finger_landmark.y * screen_height)
-
+                    index_mcp_x, index_mcp_y = int(index_finger_mcp.x * screen_width), int(index_finger_mcp.y * screen_height)
                     distance_index_thumb = math.hypot(index_x - thumb_x,index_y - thumb_y)
                     distance_middle_thumb = math.hypot(middle_x - thumb_x , middle_y - thumb_y)
                     distance_ring_thumb = math.hypot(ring_x - thumb_x , ring_y - thumb_y)
@@ -99,9 +101,7 @@ class MainApp(QWidget):
                         mouse.click(Button.right)
 
 
-                    
-
-                    mouse.position=((thumb_x-pos_x_move)*cofx, (thumb_y-pos_y_move)*cofy)
+                    mouse.position=((index_mcp_x-pos_x_move)*cofx, (index_mcp_y-pos_y_move)*cofy)
                     print(f"x{mouse.position}")
 
                     mp_drawing.draw_landmarks(frame, landmarks, mp_hands.HAND_CONNECTIONS)
