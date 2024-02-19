@@ -15,10 +15,10 @@ thickness = 4
 lineType = 3
 
 #Настройки управления
-cofx = 1.6 #растяжение по Х
+cofx = 1.7 #растяжение по Х
 cofy = 1.9 #растяжение по Y
 pos_y_move=200 #Сдвиг Y
-pos_x_move=100 #Сдвиг Х
+pos_x_move=150 #Сдвиг Х
 middle_distance=25 #расстояние ЛКМ Х2
 ring_distance = 25 #расстояние ПКМ
 finger_distance=25 #расстояние ЛКМ 
@@ -80,11 +80,11 @@ class MainApp(QWidget):
                     ring_finger_landmark = landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP]
                     thumb_landmark = landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
 
-                    index_x, index_y = int(index_finger_landmark.x * screen_width), int(index_finger_landmark.y * screen_height)
-                    middle_x, middle_y = int(middle_finger_landmark.x * screen_width), int(middle_finger_landmark.y * screen_height)
-                    thumb_x, thumb_y = int(thumb_landmark.x * screen_width), int(thumb_landmark.y * screen_height)
-                    ring_x, ring_y = int(ring_finger_landmark.x * screen_width), int(ring_finger_landmark.y * screen_height)
-                    index_mcp_x, index_mcp_y = int(index_finger_mcp.x * screen_width), int(index_finger_mcp.y * screen_height)
+                    index_x, index_y = float(index_finger_landmark.x * screen_width), float(index_finger_landmark.y * screen_height)
+                    middle_x, middle_y = float(middle_finger_landmark.x * screen_width), float(middle_finger_landmark.y * screen_height)
+                    thumb_x, thumb_y = float(thumb_landmark.x * screen_width), float(thumb_landmark.y * screen_height)
+                    ring_x, ring_y = float(ring_finger_landmark.x * screen_width), float(ring_finger_landmark.y * screen_height)
+                    index_mcp_x, index_mcp_y = float(index_finger_mcp.x * screen_width), float(index_finger_mcp.y * screen_height)
                     distance_index_thumb = math.hypot(index_x - thumb_x,index_y - thumb_y)
                     distance_middle_thumb = math.hypot(middle_x - thumb_x , middle_y - thumb_y)
                     distance_ring_thumb = math.hypot(ring_x - thumb_x , ring_y - thumb_y)
