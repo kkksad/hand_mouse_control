@@ -50,7 +50,7 @@ class MainApp(QWidget):
         global chous
         chous = int(self.comboBox.currentText())
         selected_function = self.function_selector.currentText()
-        if selected_function == "Управение рукой":
+        if selected_function == "Управление рукой":
             self.start_hand_gesture_control()
         elif selected_function == "Распознавание движения":
             self.start_motion_detection_contour()
@@ -80,8 +80,8 @@ class MainApp(QWidget):
                     middle_x, middle_y = int(middle_finger_landmark.x * screen_width), int(middle_finger_landmark.y * screen_height)
                     thumb_x, thumb_y = int(thumb_landmark.x * screen_width), int(thumb_landmark.y * screen_height)
 
-                    distance_index_thumb = math.sqrt((index_x - thumb_x) ** 2 + (index_y - thumb_y) ** 2)
-                    distance_middle_thumb = math.sqrt((middle_x - thumb_x) ** 2 + (middle_y - thumb_y) ** 2)
+                    distance_index_thumb = math.hypot(index_x - thumb_x,index_y - thumb_y)
+                    distance_middle_thumb = math.hypot(middle_x - thumb_x , middle_y - thumb_y)
                     
                     print("указательный", distance_index_thumb)
                     print("средний", distance_middle_thumb)
