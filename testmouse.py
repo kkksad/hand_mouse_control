@@ -19,8 +19,9 @@ cofx = 1.6 #растяжение по Х
 cofy = 1.9 #растяжение по Y
 pos_y_move=300 #Сдвиг Y
 pos_x_move=60 #Сдвиг Х
-middle_distance=30 #расстояние ПКМ
-thumb_distance=30 #расстояние ЛКМ
+middle_distance=30 #расстояние ЛКМ Х2
+ring_distance = 30 #расстояние ПКМ
+finger_distance=30 #расстояние ЛКМ 
 
 
 mouse=Controller()
@@ -74,23 +75,29 @@ class MainApp(QWidget):
                 for landmarks in results.multi_hand_landmarks:
                     index_finger_landmark = landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
                     middle_finger_landmark = landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
+                    ring_finger_landmark = landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP]
                     thumb_landmark = landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
 
                     index_x, index_y = int(index_finger_landmark.x * screen_width), int(index_finger_landmark.y * screen_height)
                     middle_x, middle_y = int(middle_finger_landmark.x * screen_width), int(middle_finger_landmark.y * screen_height)
                     thumb_x, thumb_y = int(thumb_landmark.x * screen_width), int(thumb_landmark.y * screen_height)
+                    ring_x, ring_y = int(ring_finger_landmark.x * screen_width), int(ring_finger_landmark.y * screen_height)
 
                     distance_index_thumb = math.hypot(index_x - thumb_x,index_y - thumb_y)
                     distance_middle_thumb = math.hypot(middle_x - thumb_x , middle_y - thumb_y)
+                    distance_ring_thumb = math.hypot(ring_x - thumb_x , ring_y - thumb_y)
                     
                     print("указательный", distance_index_thumb)
                     print("средний", distance_middle_thumb)
 
-                    if distance_index_thumb < thumb_distance:
-                        mouse.click(Button.left,2)
+                    if distance_index_thumb < finger_distance:
+                        mouse.click(Button.left)
                         
                     elif distance_middle_thumb < middle_distance:
+                        mouse.click(Button.left,2)
+                    elif distance_ring_thumb < ring_distance:
                         mouse.click(Button.right)
+
 
                     
 
