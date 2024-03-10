@@ -1,0 +1,5 @@
+mediapipe==0.10.5
+pyautogui==0.9.54
+opencv-contrib-python==4.8.1.78
+PyQt6==6.5.2
+pynput==1.7.6
